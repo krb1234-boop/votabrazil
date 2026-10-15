@@ -64,6 +64,42 @@ header p{line-height:1.75}
 .candidate.is-leading .leader-status{border-color:color-mix(in srgb,var(--candidate-color) 65%,transparent);background:color-mix(in srgb,var(--candidate-color) 17%,#101a2b);color:#fff}
 .candidate.is-tied .leader-status{border-color:#aab6c955;background:#ffffff09;color:#e1e8f4}
 @media(max-width:420px){.result-label{font-size:.83rem}.result-metrics{gap:5px}.percentage{min-width:46px;padding:3px 6px;font-size:.76rem}}
+
+/* Final visual refinement — preserve the existing navy, red and blue identity */
+.wrap{width:min(1060px,92%);padding-top:40px}
+header{margin:28px auto 34px}
+header p{font-size:1.04rem}
+.grid{gap:20px}
+.candidate{padding:24px;min-height:380px;border-radius:24px}
+.avatar-wrap{min-height:184px;margin:0 0 12px}
+.avatar{width:184px;height:184px;border-width:5px}
+.candidate h2{font-size:1.28rem}
+.full{margin-bottom:10px}
+.leader-status{margin-bottom:14px}
+.vote{min-height:50px;font-size:1.02rem;border-radius:13px}
+.results{margin-top:22px;padding:25px;border-radius:22px}
+.results-head{margin-bottom:22px}
+.result-row{margin:19px 0}
+.result-label{align-items:center;font-size:.96rem}
+.result-metrics{gap:10px}
+.percentage{min-width:60px;padding:5px 10px;font-size:.86rem;background:#ffffff0d}
+.track{height:13px;border-radius:99px}
+.bar{border-radius:99px}
+.total{margin-top:18px}
+.foot{margin-top:26px;padding-top:18px}
+@media(max-width:640px){
+ .wrap{padding-top:26px}
+ header{margin:22px auto 26px}
+ .grid{gap:14px}
+ .candidate{padding:20px;min-height:320px;border-radius:20px}
+ .avatar-wrap{min-height:164px}
+ .avatar{width:160px;height:160px}
+ .results{padding:18px}
+ .result-label{align-items:flex-start}
+ .result-metrics{gap:6px}
+}
+@media(min-width:900px){.grid{gap:22px}.candidate{padding:26px}}
+
 </style>
 </head>
 <body><main class="wrap">

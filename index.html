@@ -181,3 +181,54 @@ async function loadCounts(silent=false){if(countsLoading)return;countsLoading=tr
 buttons.forEach(button=>button.addEventListener('click',async()=>{if(button.disabled)return;const avatar=button.closest('.candidate').querySelector('.avatar');avatar.classList.remove('is-jumping');void avatar.getBoundingClientRect();avatar.classList.add('is-jumping');avatar.addEventListener('animationend',()=>avatar.classList.remove('is-jumping'),{once:true});if(!turnstileToken){message.textContent='Confirme a verificação antirobô antes de votar.';return}const candidate=button.dataset.candidate,token=turnstileToken;turnstileToken=null;buttons.forEach(b=>b.disabled=true);message.textContent='Validando e registrando seu voto…';try{const response=await fetch(SUPABASE_URL+'/functions/v1/submit-vote',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({candidate,turnstileToken:token})});const result=await response.json().catch(()=>({}));if(!response.ok){message.textContent=result.error||'Não foi possível registrar o voto. Tente novamente.'}else{message.textContent='Voto registrado. Obrigado por participar!';await loadCounts()}}catch{message.textContent='Falha de conexão ao registrar o voto. Tente novamente.'}finally{if(window.turnstile&&turnstileWidgetId!==null)window.turnstile.reset(turnstileWidgetId);buttons.forEach(b=>b.disabled=false)}}));
 document.getElementById('refresh').addEventListener('click',()=>loadCounts());loadCounts();window.setInterval(()=>loadCounts(true),30000);
 </script></body></html>
+
+/* Editorial finish: quieter surfaces, clearer hierarchy, less decorative motion */
+:root{--bg:#0d1420;--panel:#151f2e;--muted:#aab5c4;--text:#f4f6fa;--line:#2b3748;--blue:#397fe8;--red:#e3434b}
+body{background:#0d1420;background-image:radial-gradient(ellipse at 50% 0%,#1a2739 0%,#0d1420 58%);background-attachment:scroll}
+.wrap{width:min(1000px,92%);padding-top:32px;animation:none}
+.brand{letter-spacing:.12em;text-shadow:none;color:#c7d5e8}
+.brand:before{width:7px;height:7px;box-shadow:none;background:#e3434b}
+header{margin:22px auto 30px}
+h1{background:none;color:#f4f6fa;-webkit-text-fill-color:initial;letter-spacing:-.035em}
+header p{font-size:1rem;line-height:1.65;color:#b3bdcb}
+.status{background:#111b29;border-color:#303d50;box-shadow:none;backdrop-filter:none}
+.dot{animation:none;box-shadow:none}
+.grid{gap:18px}
+.candidate{background:#141f2e;border:1px solid #2c394b;border-radius:18px;padding:22px;box-shadow:0 8px 24px #0002;backdrop-filter:none;transition:border-color .2s,transform .2s}
+.candidate:before{display:none}
+.candidate:after{left:0;right:0;height:2px;opacity:.75}
+.candidate:hover{transform:translateY(-2px);box-shadow:0 12px 28px #0003}
+.avatar{box-shadow:0 8px 18px #0004;border-width:4px}
+.candidate:hover .avatar{box-shadow:0 8px 18px #0004;filter:none}
+.vote{box-shadow:none;border-radius:10px;min-height:48px}
+.vote:before{display:none}
+.vote:hover{box-shadow:none;filter:brightness(1.06);transform:translateY(-1px)}
+.results{background:#131e2d;border:1px solid #2b3748;border-radius:18px;box-shadow:0 8px 24px #0002;backdrop-filter:none;padding:22px}
+.results:before{display:none}
+.refresh{background:#1a2738;border-color:#344257}
+.refresh:hover{background:#233247;transform:none}
+.territory-legend{margin:4px 0 12px}
+.territory-bar{height:62px;border-radius:10px;box-shadow:none;border:1px solid #ffffff20}
+.territory-segment{font-size:1.05rem;text-shadow:none}
+.territory-segment:after{display:none}
+.territory-lula{background:#e3434b}
+.territory-flavio{background:#397fe8}
+.territory-segment{transition:width .45s ease}
+.territory-counts{margin-top:15px}
+.candidate.is-leading{box-shadow:0 0 0 1px color-mix(in srgb,var(--candidate-color) 48%,transparent);border-color:var(--candidate-color)}
+.candidate.is-leading:after{height:2px;box-shadow:none}
+.candidate.is-leading .leader-status{background:#1b293a}
+.percentage{background:#182536;border-color:#344257}
+.track{box-shadow:none}
+.bar:after{display:none}
+.foot{color:#9eabba;line-height:1.7}
+.foot a{color:#b8d0f7}
+@media(max-width:640px){
+ .wrap{padding-top:24px}
+ .candidate{min-height:300px;padding:19px}
+ .results{padding:18px}
+ .territory-bar{height:54px}
+}
+@media(prefers-reduced-motion:reduce){
+ .candidate,.avatar,.vote,.refresh,.territory-segment{transition:none}
+}
